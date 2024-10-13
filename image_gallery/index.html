@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>gallery</title>
+    <style>
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(
+          8,
+          8vw
+        ); /* 8 columns of 8 viewport width */
+        grid-template-rows: repeat(8, 8vw);
+        gap: 10px;
+        grid-auto-flow: row dense;
+      }
+      .special {
+        grid-row: 2 span;
+        width: 200px;
+        height: 200px;
+      }
+      img {
+        display: block;
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="gallery">
+      <img class="special" src="https://picsum.photos/seed/seed4/600" alt="" />
+      <img src="https://picsum.photos/200/300?random=2" alt="" />
+      <img src="https://picsum.photos/200/300?random=3" alt="" />
+      <img src="https://picsum.photos/200/300?random=4" alt="" />
+      <img
+        class="special"
+        src="https://picsum.photos/200/300?random=4"
+        alt=""
+      />
+      <img src="https://picsum.photos/200/300?random=5" alt="" />
+      <img src="https://picsum.photos/200/300?random=6" alt="" />
+      <img src="https://picsum.photos/200/300?random=7" alt="" />
+      <img src="https://picsum.photos/200/300?random=8" alt="" />
+      <img src="https://picsum.photos/200/300?random=9" alt="" />
+      <img
+        class="special"
+        src="https://picsum.photos/200/300?random=10"
+        alt=""
+      />
+      <img src="https://picsum.photos/200/300?random=11" alt="" />
+      <img src="https://picsum.photos/200/300?random=14" alt="" />
+      <img src="https://picsum.photos/200/300?random=4" alt="" />
+      <img src="https://picsum.photos/200/300?random=15" alt="" />
+      <img src="https://picsum.photos/200/300?random=16" alt="" />
+      <img src="https://picsum.photos/200/300?random=17" alt="" />
+      <img src="https://picsum.photos/200/300?random=18" alt="" />
+      <img src="https://picsum.photos/200/300?random=19" alt="" />
+    </div>
+  </body>
+</html>
