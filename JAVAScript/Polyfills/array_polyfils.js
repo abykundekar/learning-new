@@ -98,4 +98,5 @@ Array.prototype.customFlat = function (level = 1) {
 };
 
 flatArray = fArray.flat();
-console.log("flat array ", fArray.customFlat(5));
+//console.log("flat array ", fArray.customFlat(5));
+
