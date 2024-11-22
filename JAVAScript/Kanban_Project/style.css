@@ -34,6 +34,7 @@
 .color-box {
   height: 1.5rem;
   width: 3rem;
+  border-radius: 0.2rem; /* Smooth corners */
 }
 
 .action-btn-cont {
@@ -72,6 +73,9 @@
   border: none;
   outline: none;
   resize: none;
+  font-size: 1.5rem; /* Adjust font size */
+  padding: 1rem; /* Add padding for text */
+  line-height: 1.5; /* Improve readability */
 }
 .modal_color_cont {
   height: 100%;
@@ -95,20 +99,24 @@
   gap: 1rem;
 }
 .ticket_cont {
-  position: relative;
   height: 12rem;
   width: 15rem;
   background-color: coral;
+  border-radius: 0.5rem; /* Smooth corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add shadow */
+  overflow: hidden; /* Prevent content overflow */
 }
 .ticket_color {
   width: 100%;
   height: 1.5rem;
-  background-color: #3d3d3d;
 }
 .ticket_id {
   width: 100%;
   height: 2rem;
   background-color: yellow;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .ticket_lock {
   position: absolute;
@@ -132,4 +140,8 @@
 
 .black {
   background-color: black;
+}
+
+.active {
+  border: 3px solid red;
 }
