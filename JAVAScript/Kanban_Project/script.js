@@ -1,15 +1,37 @@
+// Selectors
+
 const addBtn = document.querySelector(".add-btn");
-const modalCont = document.querySelector(".modal");
+const removeBtn = document.querySelector(".remove-btn");
+const modalCont = document.querySelector(".modal-cont");
 const textArea = document.querySelector(".text-area");
-const mainCont = document.querySelector(".main_cont");
-const priorityColors = document.querySelectorAll(".modal_color_pick");
+const mainCont = document.querySelector(".main-cont");
+const allPriorityColors = document.querySelectorAll(".priority-color");
+const toolBoxColors = document.querySelectorAll(".color-box");
+let ticketsArr = JSON.parse(localStorage.getItem("tickets")) || [];
+
+// Init function which runs on every refresh to get the tickets form local storage
+function init() {
+  if (localStorage.getItem("tickets")) {
+    ticketsArr.forEach(function (ticket) {
+      createTicket(ticket.ticketColor, ticket.task, ticket.id);
+    });
+  }
+}
+
+init();
+
+// local variables
+let modalPriorityColor = "lightpink";
+const lockClose = "fa-lock";
+const lockOpen = "fa-lock-open";
+const colors = ["lightpink", "lightgreen", "lightblue", "black"];
 
 let addBtnFlag = false;
-let modalPriorityColor = "lightpink";
+let removeBtnFlag = false;
 
-//event to show or hide the modal
 addBtn.addEventListener("click", function () {
   addBtnFlag = !addBtnFlag;
+
   if (addBtnFlag) {
     modalCont.style.display = "flex";
   } else {
@@ -17,37 +39,161 @@ addBtn.addEventListener("click", function () {
   }
 });
 
-//event to modal
-modalCont.addEventListener("keydown", function (e) {
-  if (e.key === "Shift") {
-    console.log(textArea.value);
-    const id = (Math.random() * 10000).toFixed(0);
-    createTicket(textArea.value, id);
+// Remove Btn Toggle
+
+removeBtn.addEventListener("click", function () {
+  removeBtnFlag = !removeBtnFlag;
+  if (removeBtnFlag) {
+    alert("Delete Button Activated");
+    removeBtn.style.color = "red";
+  } else {
+    removeBtn.style.color = "white";
   }
 });
 
-//generate a ticket
-function createTicket(task, id) {
-  const ticket_cont = document.createElement("div");
-  ticket_cont.setAttribute("class", "ticket_cont");
-  ticket_cont.innerHTML = ` <div class="${modalPriorityColor} ticket_color"></div>
-        <div class="ticket_id">${id}</div>
-        <div class="ticket_area">${task}</div>
-        <div class="ticket_lock">
-          <i class="fa-solid fa-lock"></i>
-        </div>`;
-  mainCont.appendChild(ticket_cont);
-  modalCont.style.display = "none";
-  addBtnFlag = false;
+// handleRemoval
+
+function handleRemoval(ticket) {
+  ticket.addEventListener("click", function () {
+    const idx = ticket.querySelector(".ticket-id");
+    if (removeBtnFlag == true) {
+      const index = getIdx(idx);
+      ticketsArr.splice(index, 1); // it will delete that item
+      ticket.remove();
+      updateLocalStorage();
+    }
+  });
 }
 
-priorityColors.forEach(function (priorityColor) {
-  priorityColor.addEventListener("click", function () {
-    priorityColors.forEach(function (pcolor) {
-      pcolor.classList.remove("active");
-    });
+// Filtering of tickets according to Color
+toolBoxColors.forEach(function (colorElem) {
+  colorElem.addEventListener("click", function () {
+    const allTicktes = document.querySelectorAll(".ticket-cont");
+    // console.log(allTicktes)
+    const selectedColor = colorElem.classList[0];
+    // console.log(selectedColor)
 
-    priorityColor.classList.add("active");
-    modalPriorityColor = priorityColor.classList[0];
+    allTicktes.forEach(function (ticket) {
+      const tikcetColorBand = ticket.querySelector(".ticket-color");
+      console.log(tikcetColorBand);
+      if (tikcetColorBand.style.backgroundColor == selectedColor) {
+        ticket.style.display = "block";
+      } else {
+        ticket.style.display = "none";
+      }
+    });
+  });
+  colorElem.addEventListener("dblclick", function () {
+    const allTicktes = document.querySelectorAll(".ticket-cont");
+    allTicktes.forEach(function (ticket) {
+      ticket.style.display = "block";
+    });
   });
 });
+
+// Changing Task Priority on colorBand
+function handleColor(ticket) {
+  const ticketColorBand = ticket.querySelector(".ticket-color");
+  const id = ticket.querySelector(".ticket-id").innerText;
+
+  console.log(ticketColorBand);
+  ticketColorBand.addEventListener("click", function () {
+    const currentColor = ticketColorBand.style.backgroundColor;
+    console.log(currentColor); // lightpink
+    const ticketIdx = getIdx(id); // 2
+
+    let currentColorIdx = colors.findIndex(function (color) {
+      return currentColor === color;
+    }); // 0
+
+    currentColorIdx++; // 1
+
+    const newColorIdx = currentColorIdx % colors.length; // 1
+    const newColorBand = colors[newColorIdx];
+    ticketColorBand.style.backgroundColor = newColorBand;
+    ticketsArr[ticketIdx].ticketColor = newColorBand;
+
+    updateLocalStorage();
+  });
+}
+
+function handleLock(ticket) {
+  const ticketLockElem = ticket.querySelector(".ticket-lock");
+  const ticketLockIcon = ticketLockElem.children[0];
+  const taskArea = ticket.querySelector(".task-area");
+  const id = ticket.querySelector(".ticket-id").innerText;
+  console.log(ticketLockIcon);
+
+  ticketLockIcon.addEventListener("click", function () {
+    if (ticketLockIcon.classList.contains(lockClose)) {
+      ticketLockIcon.classList.remove(lockClose);
+      ticketLockIcon.classList.add(lockOpen);
+      taskArea.setAttribute("contenteditable", "true");
+    } else {
+      ticketLockIcon.classList.remove(lockOpen);
+      ticketLockIcon.classList.add(lockClose);
+      taskArea.setAttribute("contenteditable", "false");
+    }
+    const ticketIdx = getIdx(id); // 2
+    ticketsArr[ticketIdx].task = taskArea.innerText;
+    updateLocalStorage();
+  });
+}
+
+// removal of tickets
+
+// generating a Ticket
+
+function createTicket(taskColor, task, id) {
+  const ticketCont = document.createElement("div");
+  ticketCont.setAttribute("class", "ticket-cont");
+  ticketCont.innerHTML = ` <div class="ticket-color" style="background-color:${taskColor}"></div>
+          <div class="ticket-id">${id}</div>
+          <div class="task-area">${task}</div>
+          <div class="ticket-lock">
+          <i class="fa-solid fa-lock"></i>
+          </div>`;
+  mainCont.appendChild(ticketCont);
+  handleColor(ticketCont);
+  handleLock(ticketCont);
+  handleRemoval(ticketCont);
+}
+
+// Attaching key event on the Modal
+
+modalCont.addEventListener("keydown", function (e) {
+  if (e.key === "Shift") {
+    const task = textArea.value;
+    const id = (Math.random() * 10000).toFixed(0);
+    createTicket(modalPriorityColor, task, id);
+    modalCont.style.display = "none";
+    addBtnFlag = false;
+    ticketsArr.push({ id, task, ticketColor: modalPriorityColor });
+    updateLocalStorage();
+  }
+});
+
+allPriorityColors.forEach(function (colorElem) {
+  colorElem.addEventListener("click", function () {
+    allPriorityColors.forEach(function (priortyColors) {
+      priortyColors.classList.remove("active");
+    });
+
+    colorElem.classList.add("active");
+
+    modalPriorityColor = colorElem.classList[0];
+
+    console.log(modalPriorityColor);
+  });
+});
+
+function updateLocalStorage() {
+  localStorage.setItem("tickets", JSON.stringify(ticketsArr));
+}
+
+function getIdx(id) {
+  const ticketIdx = ticketsArr.findIndex(function (ticket) {
+    return ticket.id === id;
+  });
+  return ticketIdx;
+}

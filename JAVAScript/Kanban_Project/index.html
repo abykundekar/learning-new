@@ -1,70 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kanban Board Class</title>
-    <link rel="stylesheet" href="style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css"
-      integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-  </head>
-  <body>
-    <!-- Toolbox Navbar  -->
-    <nav>
-      <div class="toolbox-cont">
-        <!-- Filter Colors -->
-        <div class="toolbox-filter-colors">
-          <div class="lightpink color-box"></div>
-          <div class="lightgreen color-box"></div>
-          <div class="lightblue color-box"></div>
-          <div class="black color-box"></div>
-        </div>
-        <!-- Action Buttons -->
-        <div class="action-btn-cont">
-          <div class="add-btn">
-            <i class="fa-solid fa-plus"></i>
-          </div>
-          <div class="remove-btn">
-            <i class="fa-solid fa-trash"></i>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
 
-    <!-- Ticket Container -->
-    <div class="main_cont">
-      <!-- <div class="ticket_cont">
-        <div class="ticket_color"></div>
-        <div class="ticket_id">255</div>
-        <div class="ticket_area">jjhhg</div>
-        <div class="ticket_lock">
-          <i class="fa-solid fa-lock"></i>
-        </div>
+    <!-- Toolbox Navbar  -->
+
+    <div class="toolbox-cont">
+
+     <!-- Filter Colors -->
+      <div class="toolbox-filter-colors">
+         <div class="lightpink color-box"></div>
+         <div class="lightgreen color-box"></div>
+         <div class="lightblue color-box"></div>
+         <div class="black color-box"></div>  
       </div>
-      <div class="ticket_cont">
-        <div class="ticket_color"></div>
-        <div class="ticket_id">255</div>
-        <div class="ticket_area">jjhhg</div>
-        <div class="ticket_lock">
-          <i class="fa-solid fa-lock"></i>
-        </div>
-      </div> -->
-    </div>
-    <!-- modal tasks -->
-    <div class="modal">
-      <textarea class="text-area" placeholder="Enter the task"></textarea>
-      <div class="modal_color_cont">
-        <div class="lightpink modal_color_pick active"></div>
-        <div class="lightgreen modal_color_pick"></div>
-        <div class="lightblue modal_color_pick"></div>
-        <div class="black modal_color_pick"></div>
+
+      <!-- Action Buttons -->
+      <div class="action-btn-cont">
+         <div class="add-btn">
+            <i class="fa-solid fa-plus"></i>
+         </div>
+         <div class="remove-btn">
+            <i class="fa-solid fa-trash"></i>
+         </div> 
       </div>
+
     </div>
-  </body>
-  <script src="script.js"></script>
+
+    <!-- Ticket strcuture  -->
+
+
+    <div class="main-cont">
+
+        <!-- <div class="ticket-cont">
+          <div class="ticket-color"></div>
+          <div class="ticket-id">12345</div>
+          <div class="task-area">Random Task</div>
+          <div class="ticket-lock"></div> -->
+
+        </div>
+
+
+          
+    </div>
+
+
+
+    <!-- Task Modal pop up -->
+    <div class="modal-cont">
+        <textarea class="text-area"></textarea>
+
+        <div class="priority-color-cont">
+          <div class="lightpink priority-color active"></div>
+          <div class="lightgreen priority-color"></div>
+          <div class="lightblue priority-color"></div>
+          <div class="black priority-color"></div>
+        </div>
+    </div>
+
+
+
+    
+</body>
+<script src="script.js"></script>
 </html>
