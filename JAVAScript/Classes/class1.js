@@ -1,5 +1,5 @@
 /**
- * Class representing a Pizza
+ * Constructor function representing a Pizza
  * @param {array} toppings - list of toppings
  * @param {string} crust - type of crust
  * @param {string} size - size of pizza
