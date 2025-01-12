@@ -12,7 +12,7 @@ function getData() {
 getData();
 async function handlePromise() {
   console.log("Hello");
-  let val = await p1;
+  let val = await p1; //it will execute first then only control goes below
   console.log("scaler");
   console.log(val);
   return val;
